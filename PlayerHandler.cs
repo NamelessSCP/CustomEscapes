@@ -25,6 +25,13 @@ namespace CustomEscapes.Events
                     // ev.RespawnTickets = escapeScenario.NormalTickets;
                 }
 
+                if (ev.NewRole == RoleTypeId.None)
+                {
+                    Log.Debug($"{ev.Player.Nickname} attempted to escape, but NewRole is set to None!");
+                    ev.IsAllowed = false;
+                    return;
+                }
+
                 ev.EscapeScenario = EscapeScenario.CustomEscape;
                 ev.IsAllowed = true;
 
