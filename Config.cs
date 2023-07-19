@@ -17,6 +17,7 @@ namespace CustomEscapes
           {
                RoleTypeId.FacilityGuard, new Escape
                {
+                    AllowNewEscape = false,
                     CuffedRole = RoleTypeId.ChaosConscript,
                     // CuffedTickets = new KeyValuePair<SpawnableTeamType, float>(SpawnableTeamType.ChaosInsurgency, 1),
                     NormalRole = RoleTypeId.NtfSpecialist,
@@ -27,6 +28,7 @@ namespace CustomEscapes
     }
     public class Escape
     {
+        public bool AllowNewEscape { get; set; }
         public RoleTypeId CuffedRole { get; set; }
         // public KeyValuePair<SpawnableTeamType, float> CuffedTickets { get; set; }
         public RoleTypeId NormalRole { get; set; }

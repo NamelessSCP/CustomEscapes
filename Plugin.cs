@@ -33,12 +33,14 @@
           {
                playerHandler = new PlayerHandler();
                Player.Escaping += playerHandler.OnEscaping;
+               Player.Spawned += playerHandler.OnSpawned;
 
                Log.Debug("Events have been registered!");
           }
           public void UnregisterEvents()
           {
                Player.Escaping -= playerHandler.OnEscaping;
+               Player.Spawned -= playerHandler.OnSpawned;
 
                playerHandler = null;
           }
