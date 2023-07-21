@@ -25,12 +25,12 @@ namespace CustomEscapes.Events
                 if (ev.Player.IsCuffed)
                 {
                     ev.NewRole = escapeScenario.CuffedRole;
-                    GrantOrRemoveTokens(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number - ev.RespawnTickets.Value);
+                    ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number);
                 }   
                 else
                 {
                     ev.NewRole = escapeScenario.NormalRole;
-                    GrantOrRemoveTokens(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number - ev.RespawnTickets.Value);
+                    ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number);
                 }
 
                 if (ev.NewRole == RoleTypeId.None)
@@ -65,9 +65,8 @@ namespace CustomEscapes.Events
                         if (Vector3.Distance(player.Position, newEscPos.Position) <= newEscPos.Distance)
                         {
                             player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
-                            GrantOrRemoveTokens(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                            Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
                         }
-
                     }
                 } 
                 else if (!player.IsCuffed && scenario.NewEscapeNormal?[0] != null)
@@ -77,7 +76,7 @@ namespace CustomEscapes.Events
                         if (Vector3.Distance(player.Position, newEscPos.Position) <= newEscPos.Distance)
                         {
                             player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
-                            GrantOrRemoveTokens(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                            Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
                         }
 
                     }
@@ -90,17 +89,6 @@ namespace CustomEscapes.Events
             }
             // yield break;
         }
-        private void GrantOrRemoveTokens(SpawnableTeamType team, float tokens) {
-            if (tokens >= 0)
-            {
-                Respawn.GrantTickets(team, tokens);
-            } 
-            else
-            {
-                Respawn.RemoveTickets(team, Math.Abs(tokens));
-            }
-        }
-
     }
 
 }
