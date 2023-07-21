@@ -32,13 +32,13 @@ namespace CustomEscapes
                     CuffedTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.ChaosInsurgency,
-                        Number = 1,
+                        Number = 4f,
                     },
                     NormalRole = RoleTypeId.NtfSpecialist,
                     NormalTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.NineTailedFox,
-                        Number = 1,
+                        Number = 4f,
                     },
                }
           },
@@ -58,13 +58,13 @@ namespace CustomEscapes
                     CuffedTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.NineTailedFox,
-                        Number = 1,
+                        Number = 4f,
                     },
                     NormalRole = RoleTypeId.ChaosConscript,
                     NormalTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.ChaosInsurgency,
-                        Number = 1,
+                        Number = 4f,
                     },
                }
           },
@@ -92,6 +92,6 @@ namespace CustomEscapes
     public class RespawnTicket
     {
         public SpawnableTeamType Team { get; set; }
-        public float Number { get; set; } = 1;
+        public float Number { get; set; }
     }
 }
