@@ -27,19 +27,26 @@ namespace CustomEscapes
                         }
                     },
 
-
                     CuffedRole = RoleTypeId.ChaosConscript,
                     CuffedTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.ChaosInsurgency,
                         Number = 4f,
                     },
+                    CuffedEscapeMessage = new EscapeMessage()
+                    {
+                         Message = "You were taken prisoner by the <color=green>Chaos Insurgency!</color>",
+                         Duration = 5,
+                         UseHints = true,
+                    },
+
                     NormalRole = RoleTypeId.NtfSpecialist,
                     NormalTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.NineTailedFox,
                         Number = 4f,
                     },
+                    
                }
           },
           {
@@ -60,11 +67,18 @@ namespace CustomEscapes
                         Team = SpawnableTeamType.NineTailedFox,
                         Number = 4f,
                     },
+
                     NormalRole = RoleTypeId.ChaosConscript,
                     NormalTickets = new RespawnTicket
                     {
                         Team = SpawnableTeamType.ChaosInsurgency,
                         Number = 4f,
+                    },
+                    NormalEscapeMessage = new EscapeMessage()
+                    {
+                         Message = "You leave through the exit with Chaos Insurgency members waiting for you..",
+                         Duration = 5,
+                         UseHints = true,
                     },
                }
           },
@@ -79,9 +93,11 @@ namespace CustomEscapes
         public bool AllowDefaultEscape { get; set; } = true; 
         public RoleTypeId CuffedRole { get; set; }
         public RespawnTicket CuffedTickets { get; set; }
+        public EscapeMessage CuffedEscapeMessage { get; set; }
         public RespawnTicket NormalTickets { get; set; }
         public RoleTypeId NormalRole { get; set; }
-    }
+          public EscapeMessage NormalEscapeMessage { get; set; }
+     }
     public class NewEscapePosition
     {
         [Description("Vector3 position")]
@@ -94,4 +110,10 @@ namespace CustomEscapes
         public SpawnableTeamType Team { get; set; }
         public float Number { get; set; }
     }
+    public class EscapeMessage
+     {
+          public string Message { get; set; }
+          public ushort Duration { get; set; }
+          public bool UseHints { get; set; }
+     }
 }

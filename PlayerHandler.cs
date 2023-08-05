@@ -42,13 +42,21 @@ namespace CustomEscapes.Events
 
                 ev.EscapeScenario = EscapeScenario.CustomEscape;
                 ev.IsAllowed = true;
-
-                Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type.ToString()}! They became {ev.NewRole.ToString()}");
+                if (escapeScenario.NormalEscapeMessage != null && !ev.Player.IsCuffed)
+                {
+                    if (escapeScenario.NormalEscapeMessage.UseHints) ev.Player.ShowHint(escapeScenario.NormalEscapeMessage.Message, escapeScenario.NormalEscapeMessage.Duration);
+                    else ev.Player.Broadcast(escapeScenario.NormalEscapeMessage.Duration, escapeScenario.NormalEscapeMessage.Message);
+                }
+                else if (escapeScenario.CuffedEscapeMessage != null && ev.Player.IsCuffed)
+                {
+                    if (escapeScenario.CuffedEscapeMessage.UseHints) ev.Player.ShowHint(escapeScenario.CuffedEscapeMessage.Message, escapeScenario.CuffedEscapeMessage.Duration);
+                    else ev.Player.Broadcast(escapeScenario.CuffedEscapeMessage.Duration, escapeScenario.CuffedEscapeMessage.Message);
+                }
+                Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
             }
         }
         public void OnSpawned(SpawnedEventArgs ev)
         {
-            // bool flag = false;
             if (!config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario)) return;
             if ((escapeScenario?.NewEscapeNormal?[0] == null) && (escapeScenario?.NewEscapeCuffed?[0] == null)) return; // if no new escapes for normal nor cuffed, return (nothing to do)
             Timing.RunCoroutine(DoCustomEscape(ev.Player, ev.Player.Role.Type, escapeScenario).CancelWith(ev.Player.GameObject));
@@ -68,7 +76,7 @@ namespace CustomEscapes.Events
                             Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
                         }
                     }
-                } 
+                }
                 else if (!player.IsCuffed && scenario.NewEscapeNormal?[0] != null)
                 {
                     foreach (NewEscapePosition newEscPos in scenario.NewEscapeNormal)
