@@ -26,7 +26,6 @@ namespace CustomEscapes
                             Distance = 5f
                         }
                     },
-
                     CuffedRole = RoleTypeId.ChaosConscript,
                     CuffedTickets = new RespawnTicket
                     {
@@ -112,8 +111,10 @@ namespace CustomEscapes
      }
      public class EscapeMessage
      {
+          [Description("Message to show to the player when escaping")]
           public string? Message { get; set; }
           public ushort Duration { get; set; }
+          [Description("Whether or not to use hints")]
           public bool UseHints { get; set; }
      }
 }
