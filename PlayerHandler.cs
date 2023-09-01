@@ -11,7 +11,7 @@ namespace CustomEscapes.Events
 {
      public sealed class PlayerHandler
      {
-          Config config = Escaping.Instance.Config;
+          private readonly Config config = Escaping.Instance.Config;
           public void OnEscaping(EscapingEventArgs ev)
           {
                if (config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario))
