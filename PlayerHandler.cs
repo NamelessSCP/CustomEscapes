@@ -24,12 +24,12 @@ namespace CustomEscapes.Events
                 if (ev.Player.IsCuffed && escapeScenario.CuffedTickets != null)
                 {
                     ev.NewRole = escapeScenario.CuffedRole;
-                    ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number);
+                   if(escapeScenario.CuffedTickets != null) ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number);
                 }
-                else if (!ev.Player.IsCuffed && escapeScenario.NormalTickets != null)
+                else if (!ev.Player.IsCuffed)
                 {
                     ev.NewRole = escapeScenario.NormalRole;
-                    ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number);
+                    if(escapeScenario.NormalTickets != null) ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number);
                 }
 
                 if (ev.NewRole == RoleTypeId.None)
