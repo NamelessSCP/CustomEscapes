@@ -17,11 +17,9 @@
 
         private PlayerHandler playerHandler;
         public static Escaping Instance;
-        private Config config;
         public override void OnEnabled()
         {
             Instance = this;
-            config = Instance.Config;
 
             RegisterEvents();
             base.OnEnabled();
