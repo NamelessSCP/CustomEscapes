@@ -4,11 +4,11 @@
 		<TargetFramework>net48</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EXILED" Version="8.0.1" />
+		<PackageReference Include="EXILED" Version="8.1.0" />
 		<!-- <PackageReference Include="Lib.Harmony" Version="2.2.2" /> -->
 		<PackageReference Include="UnityEngine.Modules" Version="2019.4.15" IncludeAssets="compile" />
 	</ItemGroup>
@@ -22,14 +22,14 @@
     <Reference Include="Exiled.Events"><HintPath>lib/Exiled.Events.dll</HintPath></Reference>
     <Reference Include="Exiled.Permissions"><HintPath>lib/Exiled.Permissions.dll</HintPath></Reference>
     -->
-		<Reference Include="UnityEngine">
-			<HintPath>lib/UnityEngine.dll</HintPath>
-		</Reference>
 		<Reference Include="Assembly-CSharp-firstpass">
-			<HintPath>lib/Assembly-CSharp-firstpass.dll</HintPath>
+		  <HintPath>D:\steamcmd\scpsl\SCPSL_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
 		</Reference>
 		<Reference Include="Assembly-CSharp">
-			<HintPath>lib/Assembly-CSharp.dll</HintPath>
+		  <HintPath>D:\steamcmd\scpsl\SCPSL_Data\Managed\Assembly-CSharp-Publicized.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>lib/UnityEngine.dll</HintPath>
 		</Reference>
 		<Reference Include="Mirror">
 			<HintPath>lib/Mirror.dll</HintPath>
