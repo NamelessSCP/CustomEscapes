@@ -15,21 +15,22 @@ namespace CustomEscapes.Events
         {
             if (config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario))
             {
+                Log.Debug("Escape attempt: Scenario found");
                 if (!escapeScenario.AllowDefaultEscape && ev.Player.IsCuffed == false)
                 {
                     ev.IsAllowed = false;
                     return;
                 }
 
-                if (ev.Player.IsCuffed && escapeScenario.CuffedTickets != null)
+                if (ev.Player.IsCuffed)
                 {
                     ev.NewRole = escapeScenario.CuffedRole;
-                   if(escapeScenario.CuffedTickets != null) ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number);
+                    if (escapeScenario.CuffedTickets != null) ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number);
                 }
                 else if (!ev.Player.IsCuffed)
                 {
                     ev.NewRole = escapeScenario.NormalRole;
-                    if(escapeScenario.NormalTickets != null) ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number);
+                    if (escapeScenario.NormalTickets != null) ev.RespawnTickets = new KeyValuePair<SpawnableTeamType, float>(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number);
                 }
 
                 if (ev.NewRole == RoleTypeId.None)
@@ -77,7 +78,7 @@ namespace CustomEscapes.Events
                                 else player.Broadcast(scenario.CuffedEscapeMessage.Duration, scenario.CuffedEscapeMessage.Message);
                             }
                             player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
-                            if(scenario.CuffedTickets != null) Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                            if (scenario.CuffedTickets != null) Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
                         }
                     }
                 }
@@ -93,7 +94,7 @@ namespace CustomEscapes.Events
                                 else player.Broadcast(scenario.NormalEscapeMessage.Duration, scenario.NormalEscapeMessage.Message);
                             }
                             player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
-                            if(scenario.NormalTickets != null) Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                            if (scenario.NormalTickets != null) Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
                         }
 
                     }

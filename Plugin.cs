@@ -12,8 +12,8 @@
         public override string Prefix => "CustomEscapes";
         public override string Author => "@misfiy";
         public override PluginPriority Priority => PluginPriority.Default;
-        public override Version Version => new(1, 3, 2);
-        public override Version RequiredExiledVersion => new(8, 1, 0);
+        public override Version Version => new(1, 3, 3);
+        public override Version RequiredExiledVersion => new(8, 2, 1);
 
         private PlayerHandler playerHandler;
         public static Escaping Instance;
