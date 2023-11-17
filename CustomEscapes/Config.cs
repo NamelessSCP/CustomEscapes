@@ -87,9 +87,9 @@ namespace CustomEscapes
           [Description("Whether or not to allow escaping through the default escape (Gate B exit) while uncuffed")]
           public bool AllowDefaultEscape { get; set; } = true;
           public RoleTypeId CuffedRole { get; set; }
-          public RespawnTicket CuffedTickets { get; set; }
+          public RespawnTicket? CuffedTickets { get; set; }
           public EscapeMessage? CuffedEscapeMessage { get; set; }
-          public RespawnTicket NormalTickets { get; set; }
+          public RespawnTicket? NormalTickets { get; set; }
           public RoleTypeId NormalRole { get; set; }
           public EscapeMessage? NormalEscapeMessage { get; set; }
      }

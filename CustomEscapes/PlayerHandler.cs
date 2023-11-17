@@ -6,7 +6,7 @@ using PlayerRoles;
 using Respawning;
 using UnityEngine;
 
-namespace CustomEscapes.Events
+namespace CustomEscapes
 {
     public sealed class PlayerHandler
     {
@@ -38,12 +38,12 @@ namespace CustomEscapes.Events
             ev.NewRole = ev.Player.IsCuffed ? escapeScenario.CuffedRole : escapeScenario.NormalRole;
 
             ev.RespawnTickets = ev.Player.IsCuffed 
-                ? (escapeScenario.CuffedTickets != null 
-                    ? new KeyValuePair<SpawnableTeamType, float>(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number) 
-                    : ev.RespawnTickets) 
-                : (escapeScenario.NormalTickets != null 
-                    ? new KeyValuePair<SpawnableTeamType, float>(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number) 
-                    : ev.RespawnTickets);
+                ? escapeScenario.CuffedTickets != null 
+                    ? new(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number) 
+                    : ev.RespawnTickets 
+                : escapeScenario.NormalTickets != null 
+                    ? new(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number) 
+                    : ev.RespawnTickets;
 
             if (ev.NewRole == RoleTypeId.None)
             {

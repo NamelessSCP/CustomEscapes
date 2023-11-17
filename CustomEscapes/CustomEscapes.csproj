@@ -9,31 +9,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="EXILED" Version="8.2.1" />
-		<!-- <PackageReference Include="Lib.Harmony" Version="2.2.2" /> -->
 		<PackageReference Include="UnityEngine.Modules" Version="2019.4.15" IncludeAssets="compile" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--
-    <Reference Include="Exiled.API"><HintPath>lib/Exiled.API.dll</HintPath></Reference>
-    <Reference Include="Exiled.CreditTags"><HintPath>lib/Exiled.CreditTags.dll</HintPath></Reference>
-    <Reference Include="Exiled.CustomItems"><HintPath>lib/Exiled.CustomItems.dll</HintPath></Reference>
-    <Reference Include="Exiled.CustomRoles"><HintPath>lib/Exiled.CustomRoles.dll</HintPath></Reference>
-    <Reference Include="Exiled.Events"><HintPath>lib/Exiled.Events.dll</HintPath></Reference>
-    <Reference Include="Exiled.Permissions"><HintPath>lib/Exiled.Permissions.dll</HintPath></Reference>
-    -->
-		<Reference Include="Assembly-CSharp-firstpass">
-		  <HintPath>D:\steamcmd\scpsl\SCPSL_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-		</Reference>
-		<Reference Include="Assembly-CSharp">
-		  <HintPath>D:\steamcmd\scpsl\SCPSL_Data\Managed\Assembly-CSharp-Publicized.dll</HintPath>
-		</Reference>
-		<Reference Include="UnityEngine">
-			<HintPath>lib/UnityEngine.dll</HintPath>
-		</Reference>
-		<Reference Include="Mirror">
-			<HintPath>lib/Mirror.dll</HintPath>
-		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass" HintPath="$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="false" />
 		<Reference Include="System.Net.Http" />
 	</ItemGroup>
 
