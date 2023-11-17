@@ -27,7 +27,7 @@ namespace CustomEscapes.Events
 
         public void OnEscaping(EscapingEventArgs ev)
         {
-            if (config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario)) return;
+            if (!config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario)) return;
 
             if (!escapeScenario.AllowDefaultEscape && !ev.Player.IsCuffed)
             {
