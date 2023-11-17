@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
 using Exiled.API.Interfaces;
-using Exiled.API.Enums;
 using PlayerRoles;
-using YamlDotNet.Serialization;
 using Respawning;
 using System.ComponentModel;
 using UnityEngine;
 
 namespace CustomEscapes
 {
-    public sealed class Config : IConfig
-    {
-        public bool IsEnabled { get; set; } = true;
-        public bool Debug { get; set; } = false;
-        public Dictionary<RoleTypeId, Escape> EscapeScenarios { get; set; } = new Dictionary<RoleTypeId, Escape>
+     public sealed class Config : IConfig
+     {
+          public bool IsEnabled { get; set; } = true;
+          public bool Debug { get; set; } = false;
+          public Dictionary<RoleTypeId, Escape> EscapeScenarios { get; set; } = new Dictionary<RoleTypeId, Escape>
           {
             {
                RoleTypeId.FacilityGuard, new Escape
@@ -82,39 +78,39 @@ namespace CustomEscapes
                }
             },
         };
-    }
-    public class Escape
-    {
-        [Description("The new escape position")]
-        public List<NewEscapePosition>? NewEscapeCuffed { get; set; }
-        public List<NewEscapePosition>? NewEscapeNormal { get; set; }
-        [Description("Whether or not to allow escaping through the default escape (Gate B exit) while uncuffed")]
-        public bool AllowDefaultEscape { get; set; } = true;
-        public RoleTypeId CuffedRole { get; set; }
-        public RespawnTicket? CuffedTickets { get; set; }
-        public EscapeMessage? CuffedEscapeMessage { get; set; }
-        public RespawnTicket? NormalTickets { get; set; }
-        public RoleTypeId NormalRole { get; set; }
-        public EscapeMessage? NormalEscapeMessage { get; set; }
-    }
-    public class NewEscapePosition
-    {
-        [Description("Vector3 position")]
-        public Vector3 Position { get; set; }
-        [Description("Distance from the position")]
-        public float Distance { get; set; }
-    }
-    public class RespawnTicket
-    {
-        public SpawnableTeamType Team { get; set; }
-        public float Number { get; set; }
-    }
-    public class EscapeMessage
-    {
-        [Description("Message to show to the player when escaping")]
-        public string? Message { get; set; }
-        public ushort Duration { get; set; }
-        [Description("Whether or not to use hints")]
-        public bool UseHints { get; set; }
-    }
+     }
+     public class Escape
+     {
+          [Description("The new escape position")]
+          public List<NewEscapePosition>? NewEscapeCuffed { get; set; }
+          public List<NewEscapePosition>? NewEscapeNormal { get; set; }
+          [Description("Whether or not to allow escaping through the default escape (Gate B exit) while uncuffed")]
+          public bool AllowDefaultEscape { get; set; } = true;
+          public RoleTypeId CuffedRole { get; set; }
+          public RespawnTicket CuffedTickets { get; set; }
+          public EscapeMessage? CuffedEscapeMessage { get; set; }
+          public RespawnTicket NormalTickets { get; set; }
+          public RoleTypeId NormalRole { get; set; }
+          public EscapeMessage? NormalEscapeMessage { get; set; }
+     }
+     public class NewEscapePosition
+     {
+          [Description("Vector3 position")]
+          public Vector3 Position { get; set; }
+          [Description("Distance from the position")]
+          public float Distance { get; set; }
+     }
+     public class RespawnTicket
+     {
+          public SpawnableTeamType Team { get; set; }
+          public float Number { get; set; }
+     }
+     public class EscapeMessage
+     {
+          [Description("Message to show to the player when escaping")]
+          public string? Message { get; set; }
+          public ushort Duration { get; set; }
+          [Description("Whether or not to use hints")]
+          public bool UseHints { get; set; }
+     }
 }
