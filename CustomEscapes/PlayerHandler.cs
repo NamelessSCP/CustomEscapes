@@ -79,6 +79,7 @@ namespace CustomEscapes
                 || (escapeScenario?.NewEscapeNormal?[0] == null 
                 && escapeScenario?.NewEscapeCuffed?[0] == null)) return; // if no new escapes for normal nor cuffed, return (nothing to do)
             Timing.RunCoroutine(DoCustomEscape(ev.Player, ev.Player.Role.Type, escapeScenario).CancelWith(ev.Player.GameObject));
+            Log.Info("Coroutine for player has run!");
         }
         private IEnumerator<float> DoCustomEscape(Player player, RoleTypeId oldRole, Escape scenario)
         {
@@ -122,8 +123,6 @@ namespace CustomEscapes
                         }
                     }
                 }
-                else
-                    yield break;
                 yield return Timing.WaitForSeconds(1f);
             }
         }
