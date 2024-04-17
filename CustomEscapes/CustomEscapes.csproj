@@ -15,7 +15,7 @@
 		<Reference Include="Assembly-CSharp-firstpass" HintPath="$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="false" />
 		<Reference Include="System.Net.Http" />
 		<Reference Include="UnityEngine.CoreModule">
-		  <HintPath>$(EXILED_REFERENCES)\References\UnityEngine.CoreModule.dll</HintPath>
+		  <HintPath>$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
