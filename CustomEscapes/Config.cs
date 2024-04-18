@@ -1,3 +1,4 @@
+using Exiled.API.Enums;
 using Exiled.API.Interfaces;
 using PlayerRoles;
 using Respawning;
@@ -107,10 +108,18 @@ namespace CustomEscapes
      }
      public class EscapeMessage
      {
-          [Description("Message to show to the player when escaping")]
-          public string? Message { get; set; }
-          public ushort Duration { get; set; }
-          [Description("Whether or not to use hints")]
-          public bool UseHints { get; set; }
-     }
+        [Description("Message to show to the player when escaping")]
+        public string? Message { get; set; }
+        public ushort Duration { get; set; }
+        [Description("Whether or not to use hints")]
+        public bool UseHints { get; set; }
+    
+        public void SendMessage(Exiled.API.Features.Player player)
+        {
+            if (UseHints)
+                player.ShowHint(Message, Duration);
+            else
+                player.Broadcast(Duration, Message);
+        }
+    }
 }

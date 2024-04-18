@@ -55,26 +55,12 @@ namespace CustomEscapes
 
             ev.EscapeScenario = EscapeScenario.CustomEscape;
             ev.IsAllowed = true;
+
             if (ev.Player.IsCuffed)
-            {
-                if (escapeScenario.CuffedEscapeMessage != null)
-                {
-                    if (escapeScenario.CuffedEscapeMessage.UseHints) 
-                        ev.Player.ShowHint(escapeScenario.CuffedEscapeMessage.Message, escapeScenario.CuffedEscapeMessage.Duration);
-                    else
-                        ev.Player.Broadcast(escapeScenario.CuffedEscapeMessage.Duration, escapeScenario.CuffedEscapeMessage.Message);
-                }
-            }
+                escapeScenario.CuffedEscapeMessage?.SendMessage(ev.Player);
             else
-            {
-                if (escapeScenario.NormalEscapeMessage != null)
-                {
-                    if (escapeScenario.NormalEscapeMessage.UseHints)
-                        ev.Player.ShowHint(escapeScenario.NormalEscapeMessage.Message, escapeScenario.NormalEscapeMessage.Duration);
-                    else
-                        ev.Player.Broadcast(escapeScenario.NormalEscapeMessage.Duration, escapeScenario.NormalEscapeMessage.Message);
-                }
-            }
+                escapeScenario.NormalEscapeMessage?.SendMessage(ev.Player);
+
             Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
 
         }
@@ -97,20 +83,15 @@ namespace CustomEscapes
                         if (Vector3.Distance(player.Position, newEscPos.Position) <= newEscPos.Distance)
                             continue;
 
-                        if (scenario.CuffedEscapeMessage != null)
-                        {
-                            if (scenario.CuffedEscapeMessage.UseHints)
-                                player.ShowHint(scenario.CuffedEscapeMessage.Message, scenario.CuffedEscapeMessage.Duration);
-                            else
-                                player.Broadcast(scenario.CuffedEscapeMessage.Duration, scenario.CuffedEscapeMessage.Message);
-                        }
+                        scenario.CuffedEscapeMessage?.SendMessage(player);
 
                         player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
                         if (scenario.CuffedTickets == null)
-                            continue;
+                            break;
 
                         Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                        break;
                     }
                 }
                 else if (!player.IsCuffed && scenario.NewEscapeNormal?[0] != null)
@@ -120,20 +101,15 @@ namespace CustomEscapes
                         if (Vector3.Distance(player.Position, newEscPos.Position) > newEscPos.Distance)
                             continue;
 
-                        if (scenario.NormalEscapeMessage != null)
-                        {
-                            if (scenario.NormalEscapeMessage.UseHints)
-                                player.ShowHint(scenario.NormalEscapeMessage.Message, scenario.NormalEscapeMessage.Duration);
-                            else
-                                player.Broadcast(scenario.NormalEscapeMessage.Duration, scenario.NormalEscapeMessage.Message);
-                        }
+                        scenario.NormalEscapeMessage?.SendMessage(player);
 
                         player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
                         if (scenario.NormalTickets == null)
-                            continue;
+                            break;
 
                         Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                        break;
                     }
                 }
                 yield return Timing.WaitForSeconds(1f);
