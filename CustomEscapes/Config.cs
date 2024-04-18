@@ -115,7 +115,7 @@ public class EscapeMessage
     [Description("The duration the message should last")]
     public ushort Duration { get; set; }
     
-    [Description("Whether or not to use hints")]
+    [Description("Whether or not to use hints. Will use broadcast if false")]
     public bool UseHints { get; set; }
 
     public void SendMessage(Player player)

@@ -9,6 +9,7 @@ public class Escaping : Plugin<Config>
     public static Escaping Instance { get; set; } = null!;
 
     public override string Name { get; } = "CustomEscapes";
+    public override string Prefix => Name;
     public override string Author { get; } = "@misfiy";
     public override PluginPriority Priority => PluginPriority.Default;
     public override Version Version => new(1, 3, 7);
