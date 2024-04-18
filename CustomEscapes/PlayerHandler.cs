@@ -37,12 +37,12 @@ public sealed class PlayerHandler
 
         ev.NewRole = ev.Player.IsCuffed ? escapeScenario.CuffedRole : escapeScenario.NormalRole;
 
-        ev.RespawnTickets = ev.Player.IsCuffed 
-            ? escapeScenario.CuffedTickets != null 
-                ? new(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number) 
-                : ev.RespawnTickets 
-            : escapeScenario.NormalTickets != null 
-                ? new(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number) 
+        ev.RespawnTickets = ev.Player.IsCuffed
+            ? escapeScenario.CuffedTickets != null
+                ? new(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number)
+                : ev.RespawnTickets
+            : escapeScenario.NormalTickets != null
+                ? new(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number)
                 : ev.RespawnTickets;
 
         if (ev.NewRole == RoleTypeId.None)
@@ -56,27 +56,11 @@ public sealed class PlayerHandler
         ev.IsAllowed = true;
 
         if (ev.Player.IsCuffed)
-        {
-            if (escapeScenario.CuffedEscapeMessage != null)
-            {
-                if (escapeScenario.CuffedEscapeMessage.UseHints) 
-                    ev.Player.ShowHint(escapeScenario.CuffedEscapeMessage.Message, escapeScenario.CuffedEscapeMessage.Duration);
-                else
-                    ev.Player.Broadcast(escapeScenario.CuffedEscapeMessage.Duration, escapeScenario.CuffedEscapeMessage.Message);
-            }
-        }
+            escapeScenario.CuffedEscapeMessage?.SendMessage(ev.Player);
         else
-        {
-            if (escapeScenario.NormalEscapeMessage != null)
-            {
-                if (escapeScenario.NormalEscapeMessage.UseHints)
-                    ev.Player.ShowHint(escapeScenario.NormalEscapeMessage.Message, escapeScenario.NormalEscapeMessage.Duration);
-                else
-                    ev.Player.Broadcast(escapeScenario.NormalEscapeMessage.Duration, escapeScenario.NormalEscapeMessage.Message);
-            }
-        }
-        Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
+            escapeScenario.NormalEscapeMessage?.SendMessage(ev.Player);
 
+        Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
     }
     public void OnSpawned(SpawnedEventArgs ev)
     {
@@ -94,23 +78,15 @@ public sealed class PlayerHandler
             {
                 foreach (NewEscapePosition newEscPos in scenario.NewEscapeCuffed)
                 {
-                    if (Vector3.Distance(player.Position, newEscPos.Position) <= newEscPos.Distance)
+                    if (Vector3.Distance(player.Position, newEscPos.Position) > newEscPos.Distance)
                         continue;
 
-                    if (scenario.CuffedEscapeMessage != null)
-                    {
-                        if (scenario.CuffedEscapeMessage.UseHints)
-                            player.ShowHint(scenario.CuffedEscapeMessage.Message, scenario.CuffedEscapeMessage.Duration);
-                        else
-                            player.Broadcast(scenario.CuffedEscapeMessage.Duration, scenario.CuffedEscapeMessage.Message);
-                    }
+                    scenario.CuffedEscapeMessage?.SendMessage(player);
 
                     player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
-                    if (scenario.CuffedTickets == null)
-                        continue;
-
-                    Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                    scenario.CuffedTickets?.GrantTickets();
+                    break;
                 }
             }
             else if (!player.IsCuffed && scenario.NewEscapeNormal?[0] != null)
@@ -120,20 +96,13 @@ public sealed class PlayerHandler
                     if (Vector3.Distance(player.Position, newEscPos.Position) > newEscPos.Distance)
                         continue;
 
-                    if (scenario.NormalEscapeMessage != null)
-                    {
-                        if (scenario.NormalEscapeMessage.UseHints)
-                            player.ShowHint(scenario.NormalEscapeMessage.Message, scenario.NormalEscapeMessage.Duration);
-                        else
-                            player.Broadcast(scenario.NormalEscapeMessage.Duration, scenario.NormalEscapeMessage.Message);
-                    }
+                    scenario.NormalEscapeMessage?.SendMessage(player);
+
 
                     player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
-                    if (scenario.NormalTickets == null)
-                        continue;
-
-                    Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                    scenario.NormalTickets?.GrantTickets();
+                    break;
                 }
             }
             yield return Timing.WaitForSeconds(1f);

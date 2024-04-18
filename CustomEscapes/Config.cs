@@ -1,3 +1,5 @@
+using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Interfaces;
 using PlayerRoles;
 using Respawning;
@@ -104,6 +106,7 @@ public class RespawnTicket
 {
     public SpawnableTeamType Team { get; set; }
     public float Number { get; set; }
+    public void GrantTickets() => Respawn.GrantTickets(Team, Number);
 }
 public class EscapeMessage
 {
@@ -112,4 +115,11 @@ public class EscapeMessage
     public ushort Duration { get; set; }
     [Description("Whether or not to use hints")]
     public bool UseHints { get; set; }
+    public void SendMessage(Exiled.API.Features.Player player)
+    {
+        if (UseHints)
+            player.ShowHint(Message, Duration);
+        else
+            player.Broadcast(Duration, Message);
+    }
 }
