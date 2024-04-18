@@ -78,7 +78,7 @@ public sealed class PlayerHandler
             {
                 foreach (NewEscapePosition newEscPos in scenario.NewEscapeCuffed)
                 {
-                    if (Vector3.Distance(player.Position, newEscPos.Position) <= newEscPos.Distance)
+                    if (Vector3.Distance(player.Position, newEscPos.Position) > newEscPos.Distance)
                         continue;
 
                     scenario.CuffedEscapeMessage?.SendMessage(player);
