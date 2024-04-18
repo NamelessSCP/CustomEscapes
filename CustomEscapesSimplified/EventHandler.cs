@@ -35,7 +35,7 @@ public class EventHandler
                 ? new(scenario.NormalTickets.Team, scenario.NormalTickets.Amount) 
                 : ev.RespawnTickets;
         
-        if (ev.NewRole == RoleTypeId.None)
+        if (ev.NewRole is RoleTypeId.None)
         {
             Log.Debug($"{ev.Player.Nickname} attempted to escape, but NewRole is set to None!");
             ev.IsAllowed = false;
