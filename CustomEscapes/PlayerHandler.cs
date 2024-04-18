@@ -85,10 +85,7 @@ public sealed class PlayerHandler
 
                     player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
-                    if (scenario.CuffedTickets == null)
-                        break;
-
-                    Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                    scenario.CuffedTickets?.GrantTickets();
                     break;
                 }
             }
@@ -104,10 +101,7 @@ public sealed class PlayerHandler
 
                     player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
-                    if (scenario.NormalTickets == null)
-                        break;
-
-                    Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                    scenario.NormalTickets?.GrantTickets();
                     break;
                 }
             }

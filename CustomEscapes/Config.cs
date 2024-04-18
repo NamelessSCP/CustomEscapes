@@ -1,4 +1,5 @@
 using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.API.Interfaces;
 using PlayerRoles;
 using Respawning;
@@ -105,6 +106,7 @@ public class RespawnTicket
 {
     public SpawnableTeamType Team { get; set; }
     public float Number { get; set; }
+    public void GrantTickets() => Respawn.GrantTickets(Team, Number);
 }
 public class EscapeMessage
 {
