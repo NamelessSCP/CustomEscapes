@@ -7,9 +7,8 @@ public class Plugin : Plugin<Config>
 {
     public static Plugin Instance { get; private set; } = null!;
 
-    public override string Name => "CustomEscapes";
-    public override string Prefix => "CustomEscapes";
-    public override string Author => "@misfiy";
+    public override string Name { get; } = "CustomEscapes";
+    public override string Author { get; } = "@misfiy";
     public override PluginPriority Priority => PluginPriority.Default;
     public override Version Version => new(1, 3, 7);
     public override Version RequiredExiledVersion => new(8, 7, 0);

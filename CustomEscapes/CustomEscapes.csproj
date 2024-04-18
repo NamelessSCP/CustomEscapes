@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EXILED" Version="8.7.0" />
+		<PackageReference Include="EXILED" Version="8.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>

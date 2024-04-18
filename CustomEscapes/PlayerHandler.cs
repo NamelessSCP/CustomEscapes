@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CustomEscapes;
 
-public sealed class PlayerHandler
+public class PlayerHandler
 {
     private readonly Config config = Escaping.Instance.Config;
 
@@ -22,7 +22,6 @@ public sealed class PlayerHandler
         Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
         Exiled.Events.Handlers.Player.Spawned -= OnSpawned;
     }
-
 
     public void OnEscaping(EscapingEventArgs ev)
     {
@@ -62,14 +61,17 @@ public sealed class PlayerHandler
 
         Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
     }
+
     public void OnSpawned(SpawnedEventArgs ev)
     {
         if (!config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario) 
             || (escapeScenario?.NewEscapeNormal?[0] == null 
                 && escapeScenario?.NewEscapeCuffed?[0] == null)) return; // if no new escapes for normal nor cuffed, return (nothing to do)
+        
         Timing.RunCoroutine(DoCustomEscape(ev.Player, ev.Player.Role.Type, escapeScenario).CancelWith(ev.Player.GameObject));
         Log.Debug("Coroutine for player has run!");
     }
+
     private IEnumerator<float> DoCustomEscape(Player player, RoleTypeId oldRole, Escape scenario)
     {
         while (player.Role.Type == oldRole)
@@ -97,7 +99,6 @@ public sealed class PlayerHandler
                         continue;
 
                     scenario.NormalEscapeMessage?.SendMessage(player);
-
 
                     player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 

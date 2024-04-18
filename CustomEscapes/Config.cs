@@ -1,4 +1,3 @@
-using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.API.Interfaces;
 using PlayerRoles;
@@ -112,10 +111,14 @@ public class EscapeMessage
 {
     [Description("Message to show to the player when escaping")]
     public string? Message { get; set; }
+    
+    [Description("The duration the message should last")]
     public ushort Duration { get; set; }
+    
     [Description("Whether or not to use hints")]
     public bool UseHints { get; set; }
-    public void SendMessage(Exiled.API.Features.Player player)
+
+    public void SendMessage(Player player)
     {
         if (UseHints)
             player.ShowHint(Message, Duration);
