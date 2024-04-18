@@ -1,34 +1,33 @@
-﻿namespace CustomEscapes
+﻿namespace CustomEscapes;
+
+using Exiled.API.Features;
+using Exiled.API.Enums;
+using System;
+
+public class Escaping : Plugin<Config>
 {
-    using Exiled.API.Features;
-    using Exiled.API.Enums;
-    using System;
+    public override string Name => "CustomEscapes";
+    public override string Prefix => "CustomEscapes";
+    public override string Author => "@misfiy";
+    public override PluginPriority Priority => PluginPriority.Default;
+    public override Version Version => new(1, 3, 7);
+    public override Version RequiredExiledVersion => new(8, 7, 0);
 
-    public class Escaping : Plugin<Config>
+    private PlayerHandler playerHandler { get; set; } = null!;
+
+    public static Escaping Instance { get; set; } = null!;
+
+    public override void OnEnabled()
     {
-        public override string Name => "CustomEscapes";
-        public override string Prefix => "CustomEscapes";
-        public override string Author => "@misfiy, Ruemena & Rysik5318";
-        public override PluginPriority Priority => PluginPriority.Default;
-        public override Version Version => new(1, 3, 7);
-        public override Version RequiredExiledVersion => new(8, 7, 0);
+        Instance = this;
+        playerHandler = new();
+        base.OnEnabled();
+    }
 
-        private PlayerHandler playerHandler { get; set; } = null!;
-
-        public static Escaping Instance { get; set; } = null!;
-
-        public override void OnEnabled()
-        {
-            Instance = this;
-            playerHandler = new();
-            base.OnEnabled();
-        }
-
-        public override void OnDisabled()
-        {
-            playerHandler = null!;
-            Instance = null!;
-            base.OnDisabled();
-        }
+    public override void OnDisabled()
+    {
+        playerHandler = null!;
+        Instance = null!;
+        base.OnDisabled();
     }
 }
