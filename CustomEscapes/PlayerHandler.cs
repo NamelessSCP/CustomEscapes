@@ -37,12 +37,12 @@ public sealed class PlayerHandler
 
         ev.NewRole = ev.Player.IsCuffed ? escapeScenario.CuffedRole : escapeScenario.NormalRole;
 
-        ev.RespawnTickets = ev.Player.IsCuffed 
-            ? escapeScenario.CuffedTickets != null 
-                ? new(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number) 
-                : ev.RespawnTickets 
-            : escapeScenario.NormalTickets != null 
-                ? new(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number) 
+        ev.RespawnTickets = ev.Player.IsCuffed
+            ? escapeScenario.CuffedTickets != null
+                ? new(escapeScenario.CuffedTickets.Team, escapeScenario.CuffedTickets.Number)
+                : ev.RespawnTickets
+            : escapeScenario.NormalTickets != null
+                ? new(escapeScenario.NormalTickets.Team, escapeScenario.NormalTickets.Number)
                 : ev.RespawnTickets;
 
         if (ev.NewRole == RoleTypeId.None)
@@ -55,14 +55,12 @@ public sealed class PlayerHandler
         ev.EscapeScenario = EscapeScenario.CustomEscape;
         ev.IsAllowed = true;
 
-            ev.IsAllowed = true;
+        if (ev.Player.IsCuffed)
+            escapeScenario.CuffedEscapeMessage?.SendMessage(ev.Player);
+        else
+            escapeScenario.NormalEscapeMessage?.SendMessage(ev.Player);
 
-            if (ev.Player.IsCuffed)
-                escapeScenario.CuffedEscapeMessage?.SendMessage(ev.Player);
-            else
-                escapeScenario.NormalEscapeMessage?.SendMessage(ev.Player);
-
-            Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
+        Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
     }
     public void OnSpawned(SpawnedEventArgs ev)
     {
@@ -83,16 +81,15 @@ public sealed class PlayerHandler
                     if (Vector3.Distance(player.Position, newEscPos.Position) <= newEscPos.Distance)
                         continue;
 
-                        scenario.CuffedEscapeMessage?.SendMessage(player);
+                    scenario.CuffedEscapeMessage?.SendMessage(player);
 
-                        player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
+                    player.Role.Set(scenario.CuffedRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
-                        if (scenario.CuffedTickets == null)
-                            break;
-
-                        Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                    if (scenario.CuffedTickets == null)
                         break;
-                    }
+
+                    Respawn.GrantTickets(scenario.CuffedTickets.Team, scenario.CuffedTickets.Number);
+                    break;
                 }
             }
             else if (!player.IsCuffed && scenario.NewEscapeNormal?[0] != null)
@@ -102,18 +99,16 @@ public sealed class PlayerHandler
                     if (Vector3.Distance(player.Position, newEscPos.Position) > newEscPos.Distance)
                         continue;
 
-                        scenario.NormalEscapeMessage?.SendMessage(player);
+                    scenario.NormalEscapeMessage?.SendMessage(player);
 
 
                     player.Role.Set(scenario.NormalRole, SpawnReason.Escaped, RoleSpawnFlags.All);
 
-                        if (scenario.NormalTickets == null)
-                            break;
-
-                        Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                    if (scenario.NormalTickets == null)
                         break;
-                    }
 
+                    Respawn.GrantTickets(scenario.NormalTickets.Team, scenario.NormalTickets.Number);
+                    break;
                 }
             }
             yield return Timing.WaitForSeconds(1f);
