@@ -14,13 +14,13 @@ public class PlayerHandler
     public PlayerHandler()
     {
         Exiled.Events.Handlers.Player.Escaping += OnEscaping;
-        Exiled.Events.Handlers.Player.Spawned += OnSpawned;
+        Exiled.Events.Handlers.Player.ChangedRole += OnChangedRole;
     }
 
     ~PlayerHandler()
     {
         Exiled.Events.Handlers.Player.Escaping -= OnEscaping;
-        Exiled.Events.Handlers.Player.Spawned -= OnSpawned;
+        Exiled.Events.Handlers.Player.ChangedRole -= OnChangedRole;
     }
 
     public void OnEscaping(EscapingEventArgs ev)
@@ -62,7 +62,7 @@ public class PlayerHandler
         Log.Debug($"{ev.Player.Nickname} has escaped as a {ev.Player.Role.Type}! They became {ev.NewRole}");
     }
 
-    public void OnSpawned(SpawnedEventArgs ev)
+    public void OnChangedRole(ChangedRoleEventArgs ev)
     {
         if (!config.EscapeScenarios.TryGetValue(ev.Player.Role.Type, out Escape escapeScenario) 
             || (escapeScenario?.NewEscapeNormal?[0] == null 
