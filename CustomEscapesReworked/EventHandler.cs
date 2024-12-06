@@ -1,10 +1,10 @@
-﻿using AdminToys;
-using Exiled.API.Enums;
-using Exiled.API.Features.Toys;
-using UnityEngine;
-
-namespace CustomEscapesReworked
+﻿namespace CustomEscapesReworked
 {
+    using AdminToys;
+    using Exiled.API.Enums;
+    using Exiled.API.Features.Toys;
+    using PlayerRoles;
+    using UnityEngine;
     using CustomEscapesReworked.Objects;
     using Exiled.Events.EventArgs.Player;
 
@@ -48,7 +48,7 @@ namespace CustomEscapesReworked
 
                 ev.EscapeScenario = EscapeScenario.CustomEscape;
                 ev.NewRole = handle.NewRole;
-                ev.IsAllowed = true;
+                ev.IsAllowed = ev.NewRole != RoleTypeId.None;
             }
         }
     }

@@ -1,7 +1,7 @@
-﻿using PlayerRoles;
-
-namespace CustomEscapesReworked.Objects
+﻿namespace CustomEscapesReworked.Objects
 {
+    using PlayerRoles;
+
     public class CustomEscapeHandle
     {
         public RoleTypeId OldRole { get; set; } = RoleTypeId.None;
