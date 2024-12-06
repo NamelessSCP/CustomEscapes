@@ -2,10 +2,8 @@
 {
     using PlayerRoles;
 
-    public class CustomEscapeHandle
+    public class CustomEscapeHandle : DefaultEscapeHandle
     {
         public RoleTypeId OldRole { get; set; } = RoleTypeId.None;
-        public bool ShouldBeCuffed { get; set; }
-        public RoleTypeId NewRole { get; set; } = RoleTypeId.None;
     }
 }
