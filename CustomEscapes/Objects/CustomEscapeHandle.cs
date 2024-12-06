@@ -4,6 +4,6 @@
 
     public class CustomEscapeHandle : DefaultEscapeHandle
     {
-        public RoleTypeId OldRole { get; set; } = RoleTypeId.None;
+        public RoleTypeId OriginalRole { get; set; } = RoleTypeId.None;
     }
 }

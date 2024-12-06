@@ -20,7 +20,7 @@
 
             foreach (CustomEscapeHandle handle in handlers)
             {
-                if (handle.OldRole != player.Role.Type)
+                if (handle.OriginalRole != player.Role.Type)
                     continue;
                 
                 if (handle.ShouldBeCuffed != player.IsCuffed)
