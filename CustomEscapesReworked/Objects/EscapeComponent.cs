@@ -27,6 +27,7 @@
                     continue;
                 
                 player.Role.Set(handle.NewRole, RoleChangeReason.Escaped);
+                handle.EscapeMessage?.ShowMessage(player);
             }
         }
     }

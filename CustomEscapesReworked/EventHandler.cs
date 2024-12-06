@@ -49,6 +49,9 @@
                 ev.EscapeScenario = EscapeScenario.CustomEscape;
                 ev.NewRole = handle.NewRole;
                 ev.IsAllowed = ev.NewRole != RoleTypeId.None;
+                
+                if (ev.IsAllowed)
+                    handle.EscapeMessage?.ShowMessage(ev.Player);
             }
         }
     }
