@@ -1,7 +1,7 @@
-﻿namespace CustomEscapesReworked.Objects
+﻿namespace CustomEscapes.Objects
 {
     using Exiled.API.Features;
-    using PlayerRoles;
+    using Exiled.API.Enums;
     using UnityEngine;
 
     public class EscapeComponent : MonoBehaviour
@@ -26,7 +26,7 @@
                 if (handle.ShouldBeCuffed != player.IsCuffed)
                     continue;
                 
-                player.Role.Set(handle.NewRole, RoleChangeReason.Escaped);
+                player.Role.Set(handle.NewRole, SpawnReason.Escaped);
                 handle.EscapeMessage?.ShowMessage(player);
             }
         }

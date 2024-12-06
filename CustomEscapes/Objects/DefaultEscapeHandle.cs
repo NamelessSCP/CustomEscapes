@@ -1,4 +1,4 @@
-﻿namespace CustomEscapesReworked.Objects
+﻿namespace CustomEscapes.Objects
 {
     using PlayerRoles;
 

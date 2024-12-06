@@ -4,11 +4,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <RootNamespace>CustomEscapesReworked</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="EXILED" Version="9.0.0-beta.5" />
-    </ItemGroup>
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp-firstpass" HintPath="$(EXILED_REFERENCES)\Assembly-CSharp-firstpass.dll" Private="false" />
@@ -16,6 +13,10 @@
         <Reference Include="UnityEngine" HintPath="$(EXILED_REFERENCES)\UnityEngine.dll" Private="false" />
         <Reference Include="UnityEngine.CoreModule" HintPath="$(EXILED_REFERENCES)\UnityEngine.CoreModule.dll" Private="false" />
         <Reference Include="UnityEngine.PhysicsModule" HintPath="$(EXILED_REFERENCES)\UnityEngine.PhysicsModule.dll" Private="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="ExMod.Exiled" Version="9.0.0-alpha.4" />
     </ItemGroup>
 
 </Project>

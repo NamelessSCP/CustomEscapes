@@ -1,6 +1,6 @@
-﻿namespace CustomEscapesReworked
+﻿namespace CustomEscapes
 {
-    using CustomEscapesReworked.Objects;
+    using CustomEscapes.Objects;
     using Exiled.API.Interfaces;
     using PlayerRoles;
     using UnityEngine;

@@ -1,4 +1,4 @@
-﻿namespace CustomEscapesReworked
+﻿namespace CustomEscapes
 {
     using Exiled.API.Features;
 

@@ -1,11 +1,11 @@
-﻿namespace CustomEscapesReworked
+﻿namespace CustomEscapes
 {
     using AdminToys;
     using Exiled.API.Enums;
     using Exiled.API.Features.Toys;
     using PlayerRoles;
     using UnityEngine;
-    using CustomEscapesReworked.Objects;
+    using CustomEscapes.Objects;
     using Exiled.Events.EventArgs.Player;
 
     public class EventHandler
@@ -26,12 +26,10 @@
         {
             foreach (KeyValuePair<Vector3, CustomEscapeHandle[]> handle in Plugin.Instance.Config.CustomPositionScenarios)
             {
-                Primitive prim = Primitive.Create(PrimitiveType.Cube,
-                    PrimitiveFlags.Collidable,
-                    position: handle.Key,
-                    isStatic: true);
-                
-                prim.GameObject.AddComponent<EscapeComponent>().Init(handle.Value);
+                Primitive prim = Primitive.Create(PrimitiveType.Cube, handle.Key);
+                prim.IsStatic = true;
+                prim.Flags = PrimitiveFlags.None;
+                prim.Base.gameObject.AddComponent<EscapeComponent>().Init(handle.Value);
             }
         }
 
