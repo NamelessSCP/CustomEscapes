@@ -1,9 +1,9 @@
-﻿using Exiled.API.Features;
-using PlayerRoles;
-using UnityEngine;
-
-namespace CustomEscapesReworked.Objects
+﻿namespace CustomEscapesReworked.Objects
 {
+    using Exiled.API.Features;
+    using PlayerRoles;
+    using UnityEngine;
+
     public class EscapeComponent : MonoBehaviour
     {
         private CustomEscapeHandle[] handlers = null!;
