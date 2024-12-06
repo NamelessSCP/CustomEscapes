@@ -1,8 +1,6 @@
 ﻿namespace CustomEscapes
 {
-    using AdminToys;
     using Exiled.API.Enums;
-    using Exiled.API.Features.Toys;
     using PlayerRoles;
     using UnityEngine;
     using CustomEscapes.Objects;
@@ -26,10 +24,11 @@
         {
             foreach (KeyValuePair<Vector3, CustomEscapeHandle[]> handle in Plugin.Instance.Config.CustomPositionScenarios)
             {
-                Primitive prim = Primitive.Create(PrimitiveType.Cube, handle.Key);
-                prim.IsStatic = true;
-                prim.Flags = PrimitiveFlags.None;
-                prim.Base.gameObject.AddComponent<EscapeComponent>().Init(handle.Value);
+                GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                obj.isStatic = true;
+                obj.transform.position = handle.Key;
+                obj.GetComponent<BoxCollider>().isTrigger = true;
+                obj.AddComponent<EscapeComponent>().Init(handle.Value);
             }
         }
 

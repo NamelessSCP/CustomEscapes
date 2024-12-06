@@ -22,10 +22,10 @@
             {
                 if (handle.OriginalRole != player.Role.Type)
                     continue;
-                
+
                 if (handle.ShouldBeCuffed != player.IsCuffed)
                     continue;
-                
+
                 player.Role.Set(handle.NewRole, SpawnReason.Escaped);
                 handle.EscapeMessage?.ShowMessage(player);
             }
