@@ -1,9 +1,10 @@
 ﻿namespace CustomEscapes
 {
+    using CustomEscapes.Models;
+    using CustomEscapes.Components;
     using Exiled.API.Enums;
     using PlayerRoles;
     using UnityEngine;
-    using CustomEscapes.Objects;
     using Exiled.Events.EventArgs.Player;
 
     public class EventHandler
@@ -22,25 +23,21 @@
 
         private void SpawnCustomHandlers()
         {
-            foreach (KeyValuePair<Vector3, CustomEscapeHandle[]> handle in Plugin.Instance.Config.CustomPositionScenarios)
+            foreach (CustomEscapeHandle handle in Plugin.Instance.Config.CustomEscapeHandles)
             {
                 GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 obj.isStatic = true;
-                obj.transform.position = handle.Key;
+                obj.transform.position = handle.Position;
                 obj.GetComponent<BoxCollider>().isTrigger = true;
-                obj.AddComponent<EscapeComponent>().Init(handle.Value);
+                obj.AddComponent<EscapeComponent>().Init(handle.Handles);
             }
         }
 
         private void HandleDefaultEscape(EscapingEventArgs ev)
         {
-            if (!Plugin.Instance.Config.DefaultPositionScenarios.TryGetValue(ev.Player.Role.Type,
-                    out DefaultEscapeHandle[]? handlers))
-                return;
-
-            foreach (DefaultEscapeHandle handle in handlers)
+            foreach (EscapeHandle handle in Plugin.Instance.Config.EscapeHandles)
             {
-                if (handle.ShouldBeCuffed != ev.Player.IsCuffed)
+                if (handle.OriginalRole != ev.Player.Role.Type || handle.ShouldBeCuffed != ev.Player.IsCuffed)
                     continue;
 
                 ev.EscapeScenario = EscapeScenario.CustomEscape;

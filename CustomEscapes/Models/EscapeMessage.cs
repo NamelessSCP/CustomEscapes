@@ -1,17 +1,17 @@
-﻿namespace CustomEscapes.Objects
+﻿namespace CustomEscapes.Models
 {
     using Exiled.API.Features;
 
     public class EscapeMessage
     {
-        public string Message { get; set; } = string.Empty;
-        public bool UseHints { get; set; } = true;
+        public string Message { get; set; }
+        public bool UseHints { get; set; }
 
         public void ShowMessage(Player player)
         {
-            if (Message == String.Empty)
+            if (string.IsNullOrEmpty(Message))
                 return;
-            
+
             if (UseHints)
                 player.ShowHint(Message, 5);
             else

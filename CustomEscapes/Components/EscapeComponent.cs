@@ -1,24 +1,25 @@
-﻿namespace CustomEscapes.Objects
+﻿namespace CustomEscapes.Components
 {
+    using CustomEscapes.Models;
     using Exiled.API.Features;
     using Exiled.API.Enums;
     using UnityEngine;
 
     public class EscapeComponent : MonoBehaviour
     {
-        private CustomEscapeHandle[] handlers = null!;
+        private EscapeHandle[] handlers = null!;
 
-        public void Init(CustomEscapeHandle[] handles)
+        public void Init(EscapeHandle[] handles)
         {
             handlers = handles;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider collider)
         {
-            if (!Player.TryGet(other, out Player player))
+            if (!Player.TryGet(collider, out Player player))
                 return;
 
-            foreach (CustomEscapeHandle handle in handlers)
+            foreach (EscapeHandle handle in handlers)
             {
                 if (handle.OriginalRole != player.Role.Type)
                     continue;
