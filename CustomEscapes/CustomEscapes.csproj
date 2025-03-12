@@ -21,6 +21,7 @@
     
     <ItemGroup Condition=" '$(Configuration)' == 'LabApi' ">
         <Reference Include="Assembly-CSharp" HintPath="$(SL_REFERENCES)\Assembly-CSharp.dll" />
+        <Reference Include="CommandSystem.Core" HintPath="$(SL_REFERENCES)\CommandSystem.Core.dll" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(Configuration)' == 'EXILED' ">

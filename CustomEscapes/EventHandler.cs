@@ -39,7 +39,6 @@ public class EventHandler
             if (handle.OriginalRole != ev.Player.Role || handle.ShouldBeCuffed != ev.Player.IsDisarmed)
                 continue;
 
-
             ev.EscapeScenario = Escape.EscapeScenarioType.Custom;
             ev.NewRole = handle.NewRole;
             ev.IsAllowed = ev.NewRole != RoleTypeId.None;
