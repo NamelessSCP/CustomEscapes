@@ -1,35 +1,32 @@
-﻿namespace CustomEscapes.Components
+﻿namespace CustomEscapes.Components;
+
+using Models;
+using UnityEngine;
+using LabApi.Features.Wrappers;
+
+public class EscapeComponent : MonoBehaviour
 {
-    using CustomEscapes.Models;
-    using Exiled.API.Features;
-    using Exiled.API.Enums;
-    using UnityEngine;
+    private EscapeHandle[] _handlers = null!;
 
-    public class EscapeComponent : MonoBehaviour
+    public void Init(EscapeHandle[] handles)
     {
-        private EscapeHandle[] handlers = null!;
+        _handlers = handles;
+    }
 
-        public void Init(EscapeHandle[] handles)
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (!Player.TryGet(collider.gameObject, out Player? player))
+            return;
+
+        foreach (EscapeHandle handle in _handlers)
         {
-            handlers = handles;
-        }
+            if (handle.OriginalRole != player.Role)
+                continue;
 
-        private void OnTriggerEnter(Collider collider)
-        {
-            if (!Player.TryGet(collider, out Player player))
-                return;
+            if (handle.ShouldBeCuffed != player.IsDisarmed)
+                continue;
 
-            foreach (EscapeHandle handle in handlers)
-            {
-                if (handle.OriginalRole != player.Role.Type)
-                    continue;
-
-                if (handle.ShouldBeCuffed != player.IsCuffed)
-                    continue;
-
-                player.Role.Set(handle.NewRole, SpawnReason.Escaped);
-                handle.EscapeMessage?.ShowMessage(player);
-            }
+            handle.EscapeMessage?.ShowMessage(player);
         }
     }
 }

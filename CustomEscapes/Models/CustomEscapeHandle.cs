@@ -1,10 +1,9 @@
-﻿namespace CustomEscapes.Models
-{
-    using UnityEngine;
+﻿namespace CustomEscapes.Models;
 
-    public class CustomEscapeHandle
-    {
-        public Vector3 Position { get; set; }
-        public EscapeHandle[] Handles { get; set; } = Array.Empty<EscapeHandle>();
-    }
+using UnityEngine;
+
+public class CustomEscapeHandle
+{
+    public Vector3 Position { get; set; }
+    public EscapeHandle[] Handles { get; set; } = [];
 }

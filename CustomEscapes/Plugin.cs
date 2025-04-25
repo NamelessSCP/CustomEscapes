@@ -1,32 +1,32 @@
-﻿namespace CustomEscapes
+﻿namespace CustomEscapes;
+
+using LabApi.Loader.Features.Plugins;
+
+public class Plugin : Plugin<Config>
 {
-    using Exiled.API.Features;
+    private EventHandler? _eventHandler;
 
-    public class Plugin : Plugin<Config>
+    public static Plugin Instance { get; private set; } = null!;
+
+    public override string Name => "CustomEscapes";
+
+    public override string Author => "@misfiy";
+
+    public override Version Version => new(3, 0, 0);
+
+    public override string Description => "Adds Custom escape configs";
+
+    public override Version RequiredApiVersion => new(1, 0, 0);
+
+    public override void Enable()
     {
-        private EventHandler? eventHandler;
+        Instance = this;
+        _eventHandler = new EventHandler();
+    }
 
-        public static Plugin Instance { get; private set; } = null!;
-
-        public override string Name { get; } = "CustomEscapes";
-        public override string Author { get; } = "@misfiy";
-        public override Version Version { get; } = new(2, 0, 0);
-        public override Version RequiredExiledVersion { get; } = new(9, 0, 0);
-
-        public override void OnEnabled()
-        {
-            Instance = this;
-            eventHandler = new();
-            
-            base.OnEnabled();
-        }
-
-        public override void OnDisabled()
-        {
-            eventHandler = null;
-            Instance = null!;
-            
-            base.OnDisabled();
-        }
+    public override void Disable()
+    {
+        _eventHandler = null;
+        Instance = null!;
     }
 }

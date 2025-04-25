@@ -1,50 +1,48 @@
-﻿namespace CustomEscapes
+﻿namespace CustomEscapes;
+
+#if EXILED
+using Exiled.API.Interfaces;
+#endif
+
+using Models;
+using PlayerRoles;
+using UnityEngine;
+
+#if EXILED
+public class Config : IConfig
+#else
+public class Config
+#endif
 {
-    using CustomEscapes.Models;
-    using Exiled.API.Interfaces;
-    using PlayerRoles;
-    using UnityEngine;
+    public bool IsEnabled { get; set; } = true;
+    public bool Debug { get; set; } = false;
 
-    public class Config : IConfig
+    public EscapeHandle[] EscapeHandles { get; set; } = new EscapeHandle[]
     {
-        public bool IsEnabled { get; set; } = true;
-        public bool Debug { get; set; } = false;
-
-        public EscapeHandle[] EscapeHandles { get; set; } = new EscapeHandle[]
+        new()
         {
-            new()
+            OriginalRole = RoleTypeId.FacilityGuard,
+            NewRole = RoleTypeId.NtfSpecialist,
+            ShouldBeCuffed = false,
+            EscapeMessage = new EscapeMessage(message: "You escaped!", useHints: true)
+        }
+    };
+
+    public CustomEscapeHandle[] CustomEscapeHandles { get; set; } = new CustomEscapeHandle[]
+    {
+        new()
+        {
+            Position = Vector3.zero,
+            Handles = new EscapeHandle[]
             {
-                OriginalRole = RoleTypeId.FacilityGuard,
-                NewRole = RoleTypeId.NtfSpecialist,
-                ShouldBeCuffed = false,
-                EscapeMessage = new()
+                new()
                 {
-                    Message = "You escaped!",
-                    UseHints = true,
+                    OriginalRole = RoleTypeId.FacilityGuard,
+                    NewRole = RoleTypeId.NtfSpecialist,
+                    ShouldBeCuffed = false,
+                    EscapeMessage = new EscapeMessage(message: "You escaped!", useHints: true)
                 }
             }
-        };
-
-        public CustomEscapeHandle[] CustomEscapeHandles { get; set; } = new CustomEscapeHandle[]
-        {
-            new()
-            {
-                Position = Vector3.zero,
-                Handles = new EscapeHandle[]
-                {
-                    new()
-                    {
-                        OriginalRole = RoleTypeId.FacilityGuard,
-                        NewRole = RoleTypeId.NtfSpecialist,
-                        ShouldBeCuffed = false,
-                        EscapeMessage = new()
-                        {
-                            Message = "You escaped!",
-                            UseHints = true,
-                        }
-                    }
-                }
-            }
-        };
-    }
+        }
+    };
 }

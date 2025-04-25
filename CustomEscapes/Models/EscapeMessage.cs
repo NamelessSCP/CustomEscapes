@@ -1,21 +1,30 @@
-﻿namespace CustomEscapes.Models
+﻿namespace CustomEscapes.Models;
+
+using LabApi.Features.Wrappers;
+
+public class EscapeMessage
 {
-    using Exiled.API.Features;
-
-    public class EscapeMessage
+    public EscapeMessage()
     {
-        public string Message { get; set; } = string.Empty;
-        public bool UseHints { get; set; }
+    }
 
-        public void ShowMessage(Player player)
-        {
-            if (string.IsNullOrEmpty(Message))
-                return;
+    public EscapeMessage(string message, bool useHints)
+    {
+        Message = message;
+        UseHints = useHints;
+    }
 
-            if (UseHints)
-                player.ShowHint(Message, 5);
-            else
-                player.Broadcast(5, Message);
-        }
+    public string Message { get; set; } = string.Empty;
+    public bool UseHints { get; set; } = true;
+
+    public void ShowMessage(Player player)
+    {
+        if (string.IsNullOrEmpty(Message))
+            return;
+
+        if (UseHints)
+            player.SendHint(Message, 5);
+        else
+            player.SendBroadcast(Message, 5);
     }
 }
