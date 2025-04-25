@@ -15,7 +15,7 @@ public class EscapeMessage
     }
 
     public string Message { get; set; } = string.Empty;
-    public bool UseHints { get; set; }
+    public bool UseHints { get; set; } = true;
 
     public void ShowMessage(Player player)
     {
