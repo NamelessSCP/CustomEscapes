@@ -1,22 +1,11 @@
 ﻿namespace CustomEscapes;
 
-#if EXILED
-using Exiled.API.Interfaces;
-#endif
-
 using Models;
 using PlayerRoles;
 using UnityEngine;
 
-#if EXILED
-public class Config : IConfig
-#else
 public class Config
-#endif
 {
-    public bool IsEnabled { get; set; } = true;
-    public bool Debug { get; set; } = false;
-
     public EscapeHandle[] EscapeHandles { get; set; } = new EscapeHandle[]
     {
         new()

@@ -2,6 +2,7 @@
 
 using Models;
 using UnityEngine;
+using PlayerRoles;
 using LabApi.Features.Wrappers;
 
 public class EscapeComponent : MonoBehaviour
@@ -26,6 +27,7 @@ public class EscapeComponent : MonoBehaviour
             if (handle.ShouldBeCuffed != player.IsDisarmed)
                 continue;
 
+            player.SetRole(handle.NewRole, RoleChangeReason.Escaped);
             handle.EscapeMessage?.ShowMessage(player);
         }
     }
